@@ -19,6 +19,8 @@
 
 给扫描器启一个屌炸天的名字`x-crack`，在$GOPATH/src/中建立一个x-crack项目后开始撸码，不要给我说什么底层原理、框架内核，老夫敲代码就是一把梭。
 
+开发完毕的项目地址为：[https://github.com/netxfly/x-crack](https://github.com/netxfly/x-crack)
+
 ## 开工
 ### 数据结构定义
 
