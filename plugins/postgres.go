@@ -38,7 +38,7 @@ func ScanPostgres(service models.Service) (err error, result models.ScanResult) 
 	result.Service = service
 
 	dataSourceName := fmt.Sprintf("postgres://%v:%v@tcp(%v:%v)/%v?sslmode=%v", service.Username,
-		service.Password, service.Ip, service.Port, "test", false)
+		service.Password, service.Ip, service.Port, "postgres", false)
 	Engine, err := xorm.NewEngine("postgres", dataSourceName)
 
 	if err == nil {
