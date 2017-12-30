@@ -1275,7 +1275,7 @@ func DistributionTask(tasks []models.Service) () {
 
 ## 扫描器测试
 
-到现在为止，我们的扫描器已经大功告成了，可以编译出来运行一下看看效果了。以下脚本可一键同时编译出mac和linux平台的可执行文件（笔者的开发环境为MAC）
+到现在为止，我们的扫描器已经大功告成了，可以编译出来运行一下看看效果了。以下脚本可一键同时编译出mac、linux和Windows平台的可执行文件（笔者的开发环境为MAC）
 ```bash
 #!/bin/bash
 
@@ -1283,6 +1283,8 @@ go build x-crack.go
 mv x-crack x-crack_darwin_amd64
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build x-crack.go
 mv x-crack x-crack_linux_amd64
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build x-crack.go
+mv x-crack.exe x-crack_windows_amd64.exe
 go build x-crack.go
 ```
 
