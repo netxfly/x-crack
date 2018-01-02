@@ -36,8 +36,11 @@ import (
 
 func ScanMssql(service models.Service) (err error, result models.ScanResult) {
 	result.Service = service
-	dataSourceName := fmt.Sprintf("%v:%v@%v:%v/%v?charset=utf8", service.Username,
-		service.Password, service.Ip, service.Port, "master")
+
+	dataSourceName := fmt.Sprintf("server=%v;port=%v;user id=%v;password=%v;database=%v", service.Ip,
+		service.Port, service.Username, service.Password, "master")
+
+	fmt.Println(dataSourceName)
 	Engine, err := xorm.NewEngine("mssql", dataSourceName)
 	if err == nil {
 		Engine.SetLogLevel(core.LOG_OFF)

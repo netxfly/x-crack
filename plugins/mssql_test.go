@@ -32,6 +32,6 @@ import (
 )
 
 func TestScanMssql(t *testing.T) {
-	s := models.Service{Ip: "127.0.0.1", Port: 1433, Protocol: "mssql", Username: "sa", Password: "123456"}
+	s := models.Service{Ip: "127.0.0.1", Port: 1433, Protocol: "mssql", Username: "sa", Password: ""}
 	t.Log(plugins.ScanMssql(s))
 }
