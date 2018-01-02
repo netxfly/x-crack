@@ -39,8 +39,8 @@ func ScanMssql(service models.Service) (err error, result models.ScanResult) {
 	dataSourceName := fmt.Sprintf("%v:%v@%v:%v/%v?charset=utf8", service.Username,
 		service.Password, service.Ip, service.Port, "master")
 	Engine, err := xorm.NewEngine("mssql", dataSourceName)
-	Engine.SetLogLevel(core.LOG_OFF)
 	if err == nil {
+		Engine.SetLogLevel(core.LOG_OFF)
 		defer Engine.Close()
 		err = Engine.Ping()
 		if err == nil {
