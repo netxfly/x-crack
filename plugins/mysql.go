@@ -26,12 +26,11 @@ package plugins
 
 import (
 	_ "github.com/netxfly/mysql"
-	"github.com/go-xorm/xorm"
-	"github.com/go-xorm/core"
 
 	"x-crack/models"
 
 	"fmt"
+	"database/sql"
 )
 
 func ScanMysql(service models.Service) (err error, result models.ScanResult) {
@@ -39,15 +38,12 @@ func ScanMysql(service models.Service) (err error, result models.ScanResult) {
 
 	dataSourceName := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8", service.Username,
 		service.Password, service.Ip, service.Port, "mysql")
-	Engine, err := xorm.NewEngine("mysql", dataSourceName)
+	db, err := sql.Open("mysql", dataSourceName)
 
 	if err == nil {
-		Engine.SetLogLevel(core.LOG_OFF)
-		// fix "[mysql] packets.go:33: unexpected EOF" error
-		Engine.SetMaxIdleConns(0)
-		// Engine.SetConnMaxLifetime(time.Second * 30)
-		defer Engine.Close()
-		err = Engine.Ping()
+
+		defer db.Close()
+		err = db.Ping()
 		if err == nil {
 			result.Result = true
 		}

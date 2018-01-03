@@ -26,12 +26,11 @@ package plugins
 
 import (
 	_ "github.com/denisenkom/go-mssqldb"
-	"github.com/go-xorm/xorm"
-	"github.com/go-xorm/core"
 
 	"x-crack/models"
 
 	"fmt"
+	"database/sql"
 )
 
 func ScanMssql(service models.Service) (err error, result models.ScanResult) {
@@ -40,12 +39,10 @@ func ScanMssql(service models.Service) (err error, result models.ScanResult) {
 	dataSourceName := fmt.Sprintf("server=%v;port=%v;user id=%v;password=%v;database=%v", service.Ip,
 		service.Port, service.Username, service.Password, "master")
 
-	fmt.Println(dataSourceName)
-	Engine, err := xorm.NewEngine("mssql", dataSourceName)
+	db, err := sql.Open("mssql", dataSourceName)
 	if err == nil {
-		Engine.SetLogLevel(core.LOG_OFF)
-		defer Engine.Close()
-		err = Engine.Ping()
+		defer db.Close()
+		err = db.Ping()
 		if err == nil {
 			result.Result = true
 		}

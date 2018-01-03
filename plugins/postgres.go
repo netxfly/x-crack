@@ -26,12 +26,11 @@ package plugins
 
 import (
 	_ "github.com/lib/pq"
-	"github.com/go-xorm/xorm"
-	"github.com/go-xorm/core"
 
 	"x-crack/models"
 
 	"fmt"
+	"database/sql"
 )
 
 func ScanPostgres(service models.Service) (err error, result models.ScanResult) {
@@ -39,12 +38,11 @@ func ScanPostgres(service models.Service) (err error, result models.ScanResult) 
 
 	dataSourceName := fmt.Sprintf("postgres://%v:%v@%v:%v/%v?sslmode=%v", service.Username,
 		service.Password, service.Ip, service.Port, "postgres", "disable")
-	Engine, err := xorm.NewEngine("postgres", dataSourceName)
+	db, err := sql.Open("postgres", dataSourceName)
 
 	if err == nil {
-		defer Engine.Close()
-		Engine.SetLogLevel(core.LOG_OFF)
-		err = Engine.Ping()
+		defer db.Close()
+		err = db.Ping()
 		if err == nil {
 			result.Result = true
 		}
