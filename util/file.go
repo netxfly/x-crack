@@ -47,7 +47,11 @@ func ReadIpList(fileName string) (ipList []models.IpAddr) {
 	scanner.Split(bufio.ScanLines)
 
 	for scanner.Scan() {
-		ipPort := strings.TrimSpace(scanner.Text())
+		line := scanner.Text()
+		if line == "" {
+			continue
+		}
+		ipPort := strings.TrimSpace(line)
 		t := strings.Split(ipPort, ":")
 		ip := t[0]
 		portProtocol := t[1]

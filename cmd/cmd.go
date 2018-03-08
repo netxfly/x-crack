@@ -28,7 +28,6 @@ import (
 	"github.com/urfave/cli"
 
 	"x-crack/util"
-	"x-crack/models"
 )
 
 var Scan = cli.Command{
@@ -43,18 +42,19 @@ var Scan = cli.Command{
 		stringFlag("ip_list, i", "iplist.txt", "iplist"),
 		stringFlag("user_dict, u", "user.dic", "user dict"),
 		stringFlag("pass_dict, p", "pass.dic", "password dict"),
-	},
-}
-
-var Dump = cli.Command{
-	Name:        "dump",
-	Usage:       "dump result to a text file",
-	Description: "dump result to a text file",
-	Action:      models.Dump,
-	Flags: []cli.Flag{
 		stringFlag("outfile, o", "x_crack.txt", "scan result file"),
 	},
 }
+
+//var Dump = cli.Command{
+//	Name:        "dump",
+//	Usage:       "dump result to a text file",
+//	Description: "dump result to a text file",
+//	Action:      models.Dump,
+//	Flags: []cli.Flag{
+//		stringFlag("outfile, o", "x_crack.txt", "scan result file"),
+//	},
+//}
 
 func stringFlag(name, value, usage string) cli.StringFlag {
 	return cli.StringFlag{
