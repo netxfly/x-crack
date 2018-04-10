@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2017 xsec.io
+Copyright (c) 2018 sec.lu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -25,25 +25,29 @@ THE SOFTWARE.
 package plugins
 
 import (
+	"github.com/soniah/gosnmp"
+
 	"x-crack/models"
+	"x-crack/vars"
 )
 
-type ScanFunc func(service models.Service) (err error, result models.ScanResult)
+func ScanSNMP(s models.Service) (err error, result models.ScanResult) {
+	result.Service = s
+	result.Service.Username = "public"
+	result.Service.Password = "public"
+	gosnmp.Default.Target = s.Ip
+	gosnmp.Default.Port = uint16(s.Port)
+	gosnmp.Default.Community = result.Service.Password
+	gosnmp.Default.Timeout = vars.TimeOut
 
-var (
-	ScanFuncMap map[string]ScanFunc
-)
+	err = gosnmp.Default.Connect()
+	if err == nil {
+		oids := []string{"1.3.6.1.2.1.1.4.0", "1.3.6.1.2.1.1.7.0"}
+		_, err := gosnmp.Default.Get(oids)
+		if err == nil {
+			result.Result = true
+		}
+	}
 
-func init() {
-	ScanFuncMap = make(map[string]ScanFunc)
-	ScanFuncMap["FTP"] = ScanFtp
-	ScanFuncMap["SSH"] = ScanSsh
-	ScanFuncMap["SMB"] = ScanSmb
-	ScanFuncMap["MSSQL"] = ScanMssql
-	ScanFuncMap["MYSQL"] = ScanMysql
-	ScanFuncMap["POSTGRESQL"] = ScanPostgres
-	ScanFuncMap["REDIS"] = ScanRedis
-	ScanFuncMap["ELASTICSEARCH"] = ScanElastic
-	ScanFuncMap["MONGODB"] = ScanMongodb
-	ScanFuncMap["SNMP"] = ScanSNMP
+	return err, result
 }

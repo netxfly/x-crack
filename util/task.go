@@ -65,12 +65,12 @@ func DistributionTask(tasks []models.Service) () {
 	vars.ProgressBar.SetTemplate(`{{ rndcolor "Scanning progress: " }} {{  percent . "[%.02f%%]" "[?]"| rndcolor}} {{ counters . "[%s/%s]" "[%s/?]" | rndcolor}} {{ bar . "「" "-" (rnd "ᗧ" "◔" "◕" "◷" ) "•" "」" | rndcolor }} {{rtime . | rndcolor}} `)
 
 	for i := 0; i < scanBatch; i++ {
-		curTasks := tasks[vars.ScanNum*i:vars.ScanNum*(i+1)]
+		curTasks := tasks[vars.ScanNum*i : vars.ScanNum*(i+1)]
 		ExecuteTask(curTasks)
 	}
 
 	if totalTask%vars.ScanNum > 0 {
-		lastTask := tasks[vars.ScanNum*scanBatch:totalTask]
+		lastTask := tasks[vars.ScanNum*scanBatch : totalTask]
 		ExecuteTask(lastTask)
 	}
 
@@ -91,7 +91,7 @@ func ExecuteTask(tasks []models.Service) () {
 		var k string
 		protocol := strings.ToUpper(task.Protocol)
 
-		if protocol == "REDIS" || protocol == "FTP" {
+		if protocol == "REDIS" || protocol == "FTP" || protocol == "SNMP" {
 			k = fmt.Sprintf("%v-%v-%v", task.Ip, task.Port, task.Protocol)
 		} else {
 			k = fmt.Sprintf("%v-%v-%v", task.Ip, task.Port, task.Username)

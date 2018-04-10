@@ -31,8 +31,8 @@ import (
 	"x-crack/logger"
 	"x-crack/vars"
 
-	"net"
 	"sync"
+	"net"
 	"fmt"
 )
 
@@ -67,10 +67,18 @@ func CheckAlive(ipList []models.IpAddr) ([]models.IpAddr) {
 
 func check(ipAddr models.IpAddr) (bool, models.IpAddr) {
 	alive := false
-	_, err := net.DialTimeout("tcp", fmt.Sprintf("%v:%v", ipAddr.Ip, ipAddr.Port), vars.TimeOut)
-	if err == nil {
-		alive = true
+	if vars.UdpProtocols[ipAddr.Protocol] {
+		_, err := net.DialTimeout("udp", fmt.Sprintf("%v:%v", ipAddr.Ip, ipAddr.Port), vars.TimeOut)
+		if err == nil {
+			alive = true
+		}
+	} else {
+		_, err := net.DialTimeout("tcp", fmt.Sprintf("%v:%v", ipAddr.Ip, ipAddr.Port), vars.TimeOut)
+		if err == nil {
+			alive = true
+		}
 	}
+
 	vars.ProcessBarActive.Increment()
 	return alive, ipAddr
 }

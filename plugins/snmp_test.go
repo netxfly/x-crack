@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2017 xsec.io
+Copyright (c) 2018 sec.lu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,28 +22,16 @@ THE SOFTWARE.
 
 */
 
-package plugins
+package plugins_test
 
 import (
 	"x-crack/models"
+	"x-crack/plugins"
+
+	"testing"
 )
 
-type ScanFunc func(service models.Service) (err error, result models.ScanResult)
-
-var (
-	ScanFuncMap map[string]ScanFunc
-)
-
-func init() {
-	ScanFuncMap = make(map[string]ScanFunc)
-	ScanFuncMap["FTP"] = ScanFtp
-	ScanFuncMap["SSH"] = ScanSsh
-	ScanFuncMap["SMB"] = ScanSmb
-	ScanFuncMap["MSSQL"] = ScanMssql
-	ScanFuncMap["MYSQL"] = ScanMysql
-	ScanFuncMap["POSTGRESQL"] = ScanPostgres
-	ScanFuncMap["REDIS"] = ScanRedis
-	ScanFuncMap["ELASTICSEARCH"] = ScanElastic
-	ScanFuncMap["MONGODB"] = ScanMongodb
-	ScanFuncMap["SNMP"] = ScanSNMP
+func TestScanSNMP(t *testing.T) {
+	s := models.Service{Ip: "127.0.0.1", Port: 161, Username: "public", Password: "123456", Protocol: "snmp"}
+	t.Log(plugins.ScanSNMP(s))
 }
