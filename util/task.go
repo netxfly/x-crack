@@ -25,20 +25,20 @@ THE SOFTWARE.
 package util
 
 import (
-	"github.com/urfave/cli"
 	"github.com/sirupsen/logrus"
-
+	"github.com/urfave/cli"
 	"gopkg.in/cheggaaa/pb.v2"
 
-	"x-crack/models"
 	"x-crack/logger"
-	"x-crack/vars"
-	"x-crack/util/hash"
+	"x-crack/models"
 	"x-crack/plugins"
+	"x-crack/util/hash"
+	"x-crack/vars"
 
-	"sync"
-	"strings"
 	"fmt"
+	"runtime"
+	"strings"
+	"sync"
 	"time"
 )
 
@@ -114,6 +114,62 @@ func ExecuteTask(tasks []models.Service) () {
 	waitTimeout(&wg, vars.TimeOut)
 }
 
+func RunTask(tasks []models.Service) {
+	totalTask := len(tasks)
+	vars.ProgressBar = pb.StartNew(totalTask)
+	vars.ProgressBar.SetTemplate(`{{ rndcolor "Scanning progress: " }} {{  percent . "[%.02f%%]" "[?]"| rndcolor}} {{ counters . "[%s/%s]" "[%s/?]" | rndcolor}} {{ bar . "「" "-" (rnd "ᗧ" "◔" "◕" "◷" ) "•" "」" | rndcolor }} {{rtime . | rndcolor}} `)
+
+	wg := &sync.WaitGroup{}
+
+	// 创建一个buffer为vars.threadNum * 2的channel
+	taskChan := make(chan models.Service, vars.ScanNum*2)
+
+	// 创建vars.ThreadNum个协程
+	for i := 0; i < vars.ScanNum; i++ {
+		go crackPassword(taskChan, wg)
+	}
+
+	// 生产者，不断地往taskChan channel发送数据，直到channel阻塞
+	for _, task := range tasks {
+		wg.Add(1)
+		taskChan <- task
+	}
+
+	close(taskChan)
+	waitTimeout(wg, vars.TimeOut*2)
+}
+
+// 每个协程都从channel中读取数据后开始扫描并保存
+func crackPassword(taskChan chan models.Service, wg *sync.WaitGroup) {
+	for task := range taskChan {
+		vars.ProgressBar.Increment()
+
+		if vars.DebugMode {
+			logger.Log.Debugf("checking: Ip: %v, Port: %v, [%v], UserName: %v, Password: %v, goroutineNum: %v", task.Ip, task.Port,
+				task.Protocol, task.Username, task.Password, runtime.NumGoroutine())
+		}
+
+		var k string
+		protocol := strings.ToUpper(task.Protocol)
+
+		if protocol == "REDIS" || protocol == "FTP" || protocol == "SNMP" {
+			k = fmt.Sprintf("%v-%v-%v", task.Ip, task.Port, task.Protocol)
+		} else {
+			k = fmt.Sprintf("%v-%v-%v", task.Ip, task.Port, task.Username)
+		}
+
+		h := hash.MakeTaskHash(k)
+		if hash.CheckTashHash(h) {
+			wg.Done()
+			continue
+		}
+
+		fn := plugins.ScanFuncMap[protocol]
+		models.SaveResult(fn(task))
+		wg.Done()
+	}
+}
+
 func Scan(ctx *cli.Context) (err error) {
 	if ctx.IsSet("debug") {
 		vars.DebugMode = ctx.Bool("debug")
@@ -155,7 +211,8 @@ func Scan(ctx *cli.Context) (err error) {
 	aliveIpList := CheckAlive(ipList)
 	if uErr == nil && pErr == nil {
 		tasks, _ := GenerateTask(aliveIpList, userDict, passDict)
-		DistributionTask(tasks)
+		RunTask(tasks)
+		// DistributionTask(tasks)
 	}
 	return err
 }

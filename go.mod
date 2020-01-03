@@ -32,3 +32,5 @@ require (
 	gopkg.in/olivere/elastic.v3 v3.0.75
 	gopkg.in/yaml.v2 v2.2.2 // indirect
 )
+
+go 1.13
