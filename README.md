@@ -21,8 +21,6 @@
 
 开发完毕的项目地址为：[https://github.com/netxfly/x-crack](https://github.com/netxfly/x-crack)
 
-[![asciicast](https://asciinema.org/a/3lKBxOMvevUZPR6DCSwsH4E3S.png)](https://asciinema.org/a/3lKBxOMvevUZPR6DCSwsH4E3S)
-
 ## 开工
 ### 数据结构定义
 
