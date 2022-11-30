@@ -27,11 +27,12 @@ package plugins_test
 import (
 	"x-crack/models"
 	"x-crack/plugins"
+	"x-crack/vars"
 
 	"testing"
 )
 
 func TestScanSmb(t *testing.T) {
-	s := models.Service{Ip: "share.xsec.io", Port: 445, Protocol: "smb", Username: "xsec", Password: "fsafffdsfdsa"}
+	s := models.Service{Ip: "share.xsec.io", Port: 445, Protocol: "smb", Username: vars.USER, Password: vars.PASS}
 	t.Log(plugins.ScanSmb(s))
 }

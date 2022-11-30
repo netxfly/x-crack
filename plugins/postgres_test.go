@@ -25,13 +25,14 @@ THE SOFTWARE.
 package plugins_test
 
 import (
-	"x-crack/plugins"
 	"x-crack/models"
+	"x-crack/plugins"
+	"x-crack/vars"
 
 	"testing"
 )
 
 func TestScanPostgres(t *testing.T) {
-	s := models.Service{Ip: "127.0.0.1", Port: 5432, Protocol: "postgres", Username: "postgres", Password: ""}
+	s := models.Service{Ip: "127.0.0.1", Port: 5432, Protocol: "postgres", Username: vars.USER, Password: vars.PASS}
 	t.Log(plugins.ScanPostgres(s))
 }

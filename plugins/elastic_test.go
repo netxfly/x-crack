@@ -27,11 +27,12 @@ package plugins_test
 import (
 	"x-crack/models"
 	"x-crack/plugins"
+	"x-crack/vars"
 
 	"testing"
 )
 
 func TestScanElastic(t *testing.T) {
-	s := models.Service{Ip: "127.0.0.1", Port: 9200, Protocol: "elastic", Username: "root", Password: "123456"}
+	s := models.Service{Ip: "127.0.0.1", Port: 9200, Protocol: "elastic", Username: vars.USER, Password: vars.PASS}
 	t.Log(plugins.ScanElastic(s))
 }

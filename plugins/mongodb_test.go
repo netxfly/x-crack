@@ -27,11 +27,12 @@ package plugins_test
 import (
 	"x-crack/models"
 	"x-crack/plugins"
+	"x-crack/vars"
 
 	"testing"
 )
 
 func TestScanMongodb(t *testing.T) {
-	s := models.Service{Ip: "127.0.0.1", Port: 27017, Username: "test", Password: "test", Protocol: "mongodb"}
+	s := models.Service{Ip: "127.0.0.1", Port: 27017, Username: vars.USER, Password: vars.PASS}
 	t.Log(plugins.ScanMongodb(s))
 }

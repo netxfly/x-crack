@@ -26,12 +26,13 @@ package plugins_test
 
 import (
 	"testing"
+	"x-crack/vars"
 
-	"x-crack/plugins"
 	"x-crack/models"
+	"x-crack/plugins"
 )
 
 func TestScanMysql(t *testing.T) {
-	service := models.Service{Ip: "127.0.0.1", Port: 3306, Protocol: "mysql", Username: "root", Password: "123456"}
+	service := models.Service{Ip: "127.0.0.1", Port: 3306, Protocol: "mysql", Username: vars.USER, Password: vars.PASS}
 	t.Log(plugins.ScanMysql(service))
 }

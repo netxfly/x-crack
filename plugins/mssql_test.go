@@ -25,13 +25,14 @@ THE SOFTWARE.
 package plugins_test
 
 import (
-	"x-crack/plugins"
 	"x-crack/models"
+	"x-crack/plugins"
+	"x-crack/vars"
 
 	"testing"
 )
 
 func TestScanMssql(t *testing.T) {
-	s := models.Service{Ip: "127.0.0.1", Port: 1433, Protocol: "mssql", Username: "sa", Password: ""}
+	s := models.Service{Ip: "127.0.0.1", Port: 1433, Protocol: "mssql", Username: vars.USER, Password: vars.PASS}
 	t.Log(plugins.ScanMssql(s))
 }

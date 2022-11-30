@@ -27,11 +27,12 @@ package plugins_test
 import (
 	"x-crack/models"
 	"x-crack/plugins"
+	"x-crack/vars"
 
 	"testing"
 )
 
 func TestScanFtp(t *testing.T) {
-	s := models.Service{Ip: "127.0.0.1", Port: 21, Protocol: "ftp", Username: "ftp", Password: "ftp"}
+	s := models.Service{Ip: "127.0.0.1", Port: 21, Protocol: "ftp", Username: vars.USER, Password: vars.PASS}
 	t.Log(plugins.ScanFtp(s))
 }

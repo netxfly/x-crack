@@ -32,6 +32,6 @@ package plugins_test
 //)
 //
 //func TestScanOracle(t *testing.T) {
-//	s := models.Service{Ip: "127.0.0.1", Port: 1521, Protocol: "oracle", Username: "root", Password: "123456"}
+//	s := models.Service{Ip: "127.0.0.1", Port: 1521, Protocol: "oracle", Username: vars.USER, Password: vars.PASS}
 //	t.Log(plugins.ScanOracle(s))
 //}

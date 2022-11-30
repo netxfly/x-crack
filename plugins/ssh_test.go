@@ -27,11 +27,12 @@ package plugins_test
 import (
 	"x-crack/models"
 	"x-crack/plugins"
+	"x-crack/vars"
 
 	"testing"
 )
 
 func TestScanSsh(t *testing.T) {
-	s := models.Service{Ip: "127.0.0.1", Port: 22, Username: "root", Password: "123456", Protocol: "ssh"}
+	s := models.Service{Ip: "127.0.0.1", Port: 22, Username: vars.USER, Password: vars.PASS, Protocol: "ssh"}
 	t.Log(plugins.ScanSsh(s))
 }
