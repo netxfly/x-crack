@@ -37,8 +37,8 @@ var Scan = cli.Command{
 	Action:      util.Scan,
 	Flags: []cli.Flag{
 		boolFlag("debug, d", "debug mode"),
-		intFlag("timeout, t", 5, "timeout"),
-		intFlag("scan_num, n", 5000, "thread num"),
+		intFlag("timeout, t", 8, "timeout"),
+		intFlag("scan_num, n", 100, "thread num"),
 		stringFlag("ip_list, i", "iplist.txt", "iplist"),
 		stringFlag("user_dict, u", "user.dic", "user dict"),
 		stringFlag("pass_dict, p", "pass.dic", "password dict"),
