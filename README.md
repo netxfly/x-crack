@@ -5,6 +5,12 @@
 
 ![白帽子安全开发实战](https://github.com/netxfly/sec-dev-in-action-src)第2章扫描器中的一个示例程序。
 
+## Update
+* 修改并发数，改为100
+* 修改psql的名称，改为postgres
+
+
+
 
 ## BUILD
 
