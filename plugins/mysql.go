@@ -25,12 +25,12 @@ THE SOFTWARE.
 package plugins
 
 import (
-	_ "github.com/netxfly/mysql"
+	_ "github.com/go-sql-driver/mysql"
 
 	"x-crack/models"
 
-	"fmt"
 	"database/sql"
+	"fmt"
 )
 
 func ScanMysql(service models.Service) (err error, result models.ScanResult) {

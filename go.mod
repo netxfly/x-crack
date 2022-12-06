@@ -5,12 +5,12 @@ require (
 	github.com/denisenkom/go-mssqldb v0.0.0-20190204142019-df6d76eb9289
 	github.com/fortytw2/leaktest v1.3.0 // indirect
 	github.com/go-redis/redis v6.15.1+incompatible
+	github.com/go-sql-driver/mysql v1.7.0
 	github.com/jlaffaye/ftp v0.0.0-20190126081051-8019e6774408
 	github.com/lib/pq v1.0.0
 	github.com/mattn/go-colorable v0.1.0 // indirect
 	github.com/mattn/go-isatty v0.0.4 // indirect
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
-	github.com/netxfly/mysql v1.0.3
 	github.com/onsi/ginkgo v1.7.0 // indirect
 	github.com/onsi/gomega v1.4.3 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible
