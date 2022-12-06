@@ -25,12 +25,22 @@ THE SOFTWARE.
 package plugins_test
 
 import (
+	"fmt"
 	"testing"
 	"x-crack/vars"
 
 	"x-crack/models"
 	"x-crack/plugins"
 )
+
+func TestScanMysql2(t *testing.T) {
+	for i := 0; i < 60; i++ {
+		password := fmt.Sprintf("1234%d", i)
+
+		service := models.Service{Ip: "127.0.0.1", Port: 3306, Protocol: "mysql", Username: vars.USER, Password: password}
+		t.Log(plugins.ScanMysql(service))
+	}
+}
 
 func TestScanMysql(t *testing.T) {
 	service := models.Service{Ip: "127.0.0.1", Port: 3306, Protocol: "mysql", Username: vars.USER, Password: vars.PASS}
