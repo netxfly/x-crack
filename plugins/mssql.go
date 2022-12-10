@@ -29,15 +29,15 @@ import (
 
 	"x-crack/models"
 
-	"fmt"
 	"database/sql"
+	"fmt"
 )
 
 func ScanMssql(service models.Service) (err error, result models.ScanResult) {
 	result.Service = service
-
+	//SQL Server的4个默认数据库: master、model 、tempdb 、msdb
 	dataSourceName := fmt.Sprintf("server=%v;port=%v;user id=%v;password=%v;database=%v", service.Ip,
-		service.Port, service.Username, service.Password, "master")
+		service.Port, service.Username, service.Password, "model")
 
 	db, err := sql.Open("mssql", dataSourceName)
 	if err == nil {

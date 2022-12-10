@@ -32,6 +32,7 @@ import (
 	"testing"
 )
 
+//fapro，无法认证成功。
 func TestScanMssql(t *testing.T) {
 	s := models.Service{Ip: "127.0.0.1", Port: 1433, Protocol: "mssql", Username: vars.USER, Password: vars.PASS}
 	t.Log(plugins.ScanMssql(s))

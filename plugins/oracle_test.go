@@ -24,14 +24,16 @@ THE SOFTWARE.
 
 package plugins_test
 
-//import (
-//	"testing"
-//
-//	"x-crack/plugins"
-//	"x-crack/models"
-//)
-//
-//func TestScanOracle(t *testing.T) {
-//	s := models.Service{Ip: "127.0.0.1", Port: 1521, Protocol: "oracle", Username: vars.USER, Password: vars.PASS}
-//	t.Log(plugins.ScanOracle(s))
-//}
+import (
+	"testing"
+	"x-crack/vars"
+
+	"x-crack/models"
+	"x-crack/plugins"
+)
+
+//需要客户端的依赖，暂时搞不起。
+func TestScanOracle(t *testing.T) {
+	s := models.Service{Ip: "127.0.0.1", Port: 1521, Protocol: "oracle", Username: vars.USER, Password: vars.PASS}
+	t.Log(plugins.ScanOracle(s))
+}

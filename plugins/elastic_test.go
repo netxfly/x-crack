@@ -32,6 +32,7 @@ import (
 	"testing"
 )
 
+//fapro还不支持设置密码，https://github.com/fofapro/fapro/issues/34
 func TestScanElastic(t *testing.T) {
 	s := models.Service{Ip: "127.0.0.1", Port: 9200, Protocol: "elastic", Username: vars.USER, Password: vars.PASS}
 	t.Log(plugins.ScanElastic(s))

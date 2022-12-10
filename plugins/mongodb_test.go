@@ -32,6 +32,7 @@ import (
 	"testing"
 )
 
+//需要_mongodb.json，且不支持设置账号密码
 func TestScanMongodb(t *testing.T) {
 	s := models.Service{Ip: "127.0.0.1", Port: 27017, Username: vars.USER, Password: vars.PASS}
 	t.Log(plugins.ScanMongodb(s))
