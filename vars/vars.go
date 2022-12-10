@@ -77,6 +77,7 @@ var (
 		27017: "MONGODB",
 		110:   "POP3",
 		143:   "IMAP",
+		389:   "LDAP",
 	}
 
 	UdpProtocols = map[string]bool{

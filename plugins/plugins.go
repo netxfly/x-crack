@@ -49,4 +49,5 @@ func init() {
 	ScanFuncMap["POP3"] = ScanPop3
 	ScanFuncMap["RDP"] = ScanRDP
 	ScanFuncMap["IMAP"] = ScanImap
+	ScanFuncMap["LDAP"] = ScanLdap
 }
