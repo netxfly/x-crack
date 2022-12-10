@@ -67,7 +67,7 @@ var (
 		1433:  "MSSQL",
 		3306:  "MYSQL",
 		3389:  "RDP",
-		5432:  "POSTGRESQL",
+		5432:  "POSTGRES",
 		6379:  "REDIS",
 		9200:  "ELASTICSEARCH",
 		27017: "MONGODB",
