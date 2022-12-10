@@ -40,11 +40,11 @@ func init() {
 func main() {
 	app := cli.NewApp()
 	app.Name = "x-crack"
-	app.Author = "netxfly"
-	app.Email = "x@xsec.io"
-	app.Version = "20171227"
-	app.Usage = "Weak password scanner, Support: FTP/SSH/MSSQL/MYSQL/PostGreSQL/REDIS/ElasticSearch/MONGODB"
-	app.Commands = []cli.Command{cmd.Scan, /*cmd.Dump*/ }
+	app.Author = "netxfly, unc1e"
+	app.Email = "x@xsec.io, root@zuoxueba.org"
+	app.Version = "20221210"
+	app.Usage = "Weak password scanner, Support: FTP/SSH/MSSQL/MYSQL/PostGreSQL/REDIS/ElasticSearch/MONGODB/POP3"
+	app.Commands = []cli.Command{cmd.Scan /*cmd.Dump*/}
 	app.Flags = append(app.Flags, cmd.Scan.Flags...)
 	// app.Flags = append(app.Flags, cmd.Dump.Flags...)
 	app.Run(os.Args)
