@@ -14,10 +14,12 @@
 * smb
 * snmp
 * ssh
+* pop3
 
 
 ## Roadmap
-1. 扩充支持的协议，增加：rdp
+1. 扩充支持的协议，计划增加： 
+- rdp
 - pop3
 - imap
 - ldap
