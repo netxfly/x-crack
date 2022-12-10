@@ -71,6 +71,7 @@ var (
 		6379:  "REDIS",
 		9200:  "ELASTICSEARCH",
 		27017: "MONGODB",
+		110:   "POP3",
 	}
 
 	UdpProtocols = map[string]bool{
