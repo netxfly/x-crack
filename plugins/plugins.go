@@ -47,4 +47,5 @@ func init() {
 	ScanFuncMap["MONGODB"] = ScanMongodb
 	ScanFuncMap["SNMP"] = ScanSNMP
 	ScanFuncMap["POP3"] = ScanPop3
+	ScanFuncMap["RDP"] = ScanRDP
 }
