@@ -24,32 +24,33 @@ THE SOFTWARE.
 
 package plugins
 
-import (
-	"database/sql"
-	"fmt"
-	_ "github.com/godror/godror"
-	"x-crack/models"
-)
-
-func ScanOracle(service models.Service) (err error, result models.ScanResult) {
-	result.Service = service
-	dataSource := fmt.Sprintf(`user="%v" password="%v" connectString="%v:%v/%v"`,
-		service.Username,
-		service.Password,
-		service.Ip,
-		service.Port,
-		"oracle")
-	db, err := sql.Open("godror", dataSource)
-	if err != nil {
-		panic(err)
-	}
-	defer db.Close()
-	err = db.Ping()
-	if err != nil {
-		fmt.Println(err.Error())
-		panic(err)
-	}
-	fmt.Println("链接成功")
-	result.Result = true
-	return err, result
-}
+//
+//import (
+//	"database/sql"
+//	"fmt"
+//	_ "github.com/godror/godror"
+//	"x-crack/models"
+//)
+//
+//func ScanOracle(service models.Service) (err error, result models.ScanResult) {
+//	result.Service = service
+//	dataSource := fmt.Sprintf(`user="%v" password="%v" connectString="%v:%v/%v"`,
+//		service.Username,
+//		service.Password,
+//		service.Ip,
+//		service.Port,
+//		"oracle")
+//	db, err := sql.Open("godror", dataSource)
+//	if err != nil {
+//		panic(err)
+//	}
+//	defer db.Close()
+//	err = db.Ping()
+//	if err != nil {
+//		fmt.Println(err.Error())
+//		panic(err)
+//	}
+//	fmt.Println("链接成功")
+//	result.Result = true
+//	return err, result
+//}
