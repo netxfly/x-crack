@@ -102,7 +102,11 @@ func CheckAliveIpAddr(IP string) []models.IpAddr {
 
 	alive, ipAddr := check(IpAddr)
 
-	SaveAddr(alive, ipAddr)
+	if alive {
+		AliveAddr = []models.IpAddr{
+			ipAddr,
+		}
+	}
 
 	return AliveAddr
 }
