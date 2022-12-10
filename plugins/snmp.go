@@ -25,7 +25,7 @@ THE SOFTWARE.
 package plugins
 
 import (
-	"github.com/soniah/gosnmp"
+	"github.com/gosnmp/gosnmp"
 
 	"x-crack/models"
 	"x-crack/vars"
