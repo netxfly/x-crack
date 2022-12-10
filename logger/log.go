@@ -37,5 +37,5 @@ func init() {
 	logger := logrus.New()
 	logger.Formatter = new(prefixed.TextFormatter)
 	logger.Level = logrus.DebugLevel
-	Log = logger.WithFields(logrus.Fields{"prefix": "xsec crack"})
+	Log = logger.WithFields(logrus.Fields{"prefix": "xcrack"})
 }

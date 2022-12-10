@@ -231,6 +231,8 @@ func Scan(ctx *cli.Context) (err error) {
 		aliveIpList = CheckAlive(ipList)
 	}
 	if uErr == nil && pErr == nil {
+		logger.Log.Printf("Got %v services to brute force", len(aliveIpList))
+		logger.Log.Printf("Loaded %v usernames, %v passwords", len(userDict), len(passDict))
 		tasks, _ := GenerateTask(aliveIpList, userDict, passDict)
 		RunTask(tasks)
 		// DistributionTask(tasks)
