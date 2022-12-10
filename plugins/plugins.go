@@ -41,7 +41,7 @@ func init() {
 	ScanFuncMap["SMB"] = ScanSmb
 	ScanFuncMap["MSSQL"] = ScanMssql
 	ScanFuncMap["MYSQL"] = ScanMysql
-	ScanFuncMap["POSTGRESQL"] = ScanPostgres
+	ScanFuncMap["POSTGRES"] = ScanPostgres
 	ScanFuncMap["REDIS"] = ScanRedis
 	ScanFuncMap["ELASTICSEARCH"] = ScanElastic
 	ScanFuncMap["MONGODB"] = ScanMongodb
