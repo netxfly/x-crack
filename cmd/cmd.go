@@ -39,10 +39,15 @@ var Scan = cli.Command{
 		boolFlag("debug, d", "debug mode"),
 		intFlag("timeout, t", 8, "timeout"),
 		intFlag("scan_num, n", 100, "thread num"),
-		stringFlag("ip_list, i", "iplist.txt", "iplist"),
-		stringFlag("user_dict, u", "user.dic", "user dict"),
-		stringFlag("pass_dict, p", "pass.dic", "password dict"),
+
+		stringFlag("ip_list, I", "iplist.txt", "iplist"),        //TODO: should notice
+		stringFlag("user_dict, U", "user.dic", "user dict"),     //TODO: should notice
+		stringFlag("pass_dict, P", "pass.dic", "password dict"), //TODO: should notice
 		stringFlag("outfile, o", "x_crack.txt", "scan result file"),
+
+		stringFlag("ip, i", "", "service ip addr, eg: ssh://127.0.0.1:22"),
+		stringFlag("username, u", "", "username, eg: root"),
+		stringFlag("password, p", "", "password, eg: 123456"),
 	},
 }
 

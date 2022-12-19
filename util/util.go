@@ -26,14 +26,13 @@ package util
 
 import (
 	"gopkg.in/cheggaaa/pb.v2"
-
-	"x-crack/models"
 	"x-crack/logger"
+	"x-crack/models"
 	"x-crack/vars"
 
-	"sync"
-	"net"
 	"fmt"
+	"net"
+	"sync"
 )
 
 var (
@@ -45,7 +44,7 @@ func init() {
 	AliveAddr = make([]models.IpAddr, 0)
 }
 
-func CheckAlive(ipList []models.IpAddr) ([]models.IpAddr) {
+func CheckAlive(ipList []models.IpAddr) []models.IpAddr {
 	logger.Log.Infoln("checking ip active")
 	vars.ProcessBarActive = pb.StartNew(len(ipList))
 	vars.ProcessBarActive.SetTemplate(`{{ rndcolor "Checking progress: " }} {{  percent . "[%.02f%%]" "[?]"| rndcolor}} {{ counters . "[%s/%s]" "[%s/?]" | rndcolor}} {{ bar . "「" "-" (rnd "ᗧ" "◔" "◕" "◷" ) "•" "」" | rndcolor}}  {{rtime . | rndcolor }}`)
@@ -65,6 +64,53 @@ func CheckAlive(ipList []models.IpAddr) ([]models.IpAddr) {
 	return AliveAddr
 }
 
+type mm string
+
+func (m *mm) Scan(state fmt.ScanState, verb rune) error {
+	tok, err := state.Token(true, func(r rune) bool {
+		// 默认string以空格分隔,我这里改为用逗号分隔
+		var ret bool
+		if r != ':' &&
+			r != '/' {
+			ret = true
+		}
+
+		return ret
+	})
+	if err != nil {
+		return err
+	}
+	*m = mm(tok)
+	return nil
+}
+
+func CheckAliveIpAddr(IP string) []models.IpAddr {
+	logger.Log.Infoln("checking ip active")
+
+	var IpAddr models.IpAddr
+	// Fix err `unexpected EOF`, see: https://studygolang.com/topics/15855
+	_, err := fmt.Sscanf(IP, "%s://%s:%d",
+		(*mm)(&IpAddr.Protocol),
+		(*mm)(&IpAddr.Ip),
+		&IpAddr.Port,
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(IpAddr)
+
+	alive, ipAddr := check(IpAddr)
+
+	if alive {
+		AliveAddr = []models.IpAddr{
+			ipAddr,
+		}
+	}
+
+	return AliveAddr
+}
+
 func check(ipAddr models.IpAddr) (bool, models.IpAddr) {
 	alive := false
 	if vars.UdpProtocols[ipAddr.Protocol] {
@@ -79,7 +125,6 @@ func check(ipAddr models.IpAddr) (bool, models.IpAddr) {
 		}
 	}
 
-	vars.ProcessBarActive.Increment()
 	return alive, ipAddr
 }
 

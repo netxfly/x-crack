@@ -46,4 +46,8 @@ func init() {
 	ScanFuncMap["ELASTICSEARCH"] = ScanElastic
 	ScanFuncMap["MONGODB"] = ScanMongodb
 	ScanFuncMap["SNMP"] = ScanSNMP
+	ScanFuncMap["POP3"] = ScanPop3
+	ScanFuncMap["RDP"] = ScanRDP
+	ScanFuncMap["IMAP"] = ScanImap
+	ScanFuncMap["LDAP"] = ScanLdap
 }

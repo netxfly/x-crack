@@ -57,7 +57,7 @@ func GenerateTask(ipList []models.IpAddr, users []string, passwords []string) (t
 	return tasks, len(tasks)
 }
 
-func DistributionTask(tasks []models.Service) () {
+func DistributionTask(tasks []models.Service) {
 	totalTask := len(tasks)
 	scanBatch := totalTask / vars.ScanNum
 	logger.Log.Infoln("Start to scan")
@@ -79,7 +79,7 @@ func DistributionTask(tasks []models.Service) () {
 	models.DumpToFile(vars.ResultFile)
 }
 
-func ExecuteTask(tasks []models.Service) () {
+func ExecuteTask(tasks []models.Service) {
 	var wg sync.WaitGroup
 	wg.Add(len(tasks))
 	for _, task := range tasks {
@@ -203,13 +203,36 @@ func Scan(ctx *cli.Context) (err error) {
 		vars.ResultFile = ctx.String("outfile")
 	}
 
-	vars.StartTime = time.Now()
+	if ctx.IsSet("ip") {
+		vars.IP = ctx.String("ip")
+	}
 
+	if ctx.IsSet("username") {
+		vars.USERNAME = ctx.String("username")
+	}
+
+	if ctx.IsSet("password") {
+		vars.PASSWORD = ctx.String("password")
+	}
+	vars.StartTime = time.Now()
 	userDict, uErr := ReadUserDict(vars.UserDict)
+	if vars.USERNAME != "" {
+		userDict = []string{vars.USERNAME}
+	}
 	passDict, pErr := ReadPasswordDict(vars.PassDict)
+	if vars.PASSWORD != "" {
+		passDict = []string{vars.PASSWORD}
+	}
 	ipList := ReadIpList(vars.IpList)
-	aliveIpList := CheckAlive(ipList)
+	var aliveIpList []models.IpAddr
+	if vars.IP != "" {
+		aliveIpList = CheckAliveIpAddr(vars.IP)
+	} else {
+		aliveIpList = CheckAlive(ipList)
+	}
 	if uErr == nil && pErr == nil {
+		logger.Log.Printf("Got %v services to brute force", len(aliveIpList))
+		logger.Log.Printf("Loaded %v usernames, %v passwords", len(userDict), len(passDict))
 		tasks, _ := GenerateTask(aliveIpList, userDict, passDict)
 		RunTask(tasks)
 		// DistributionTask(tasks)

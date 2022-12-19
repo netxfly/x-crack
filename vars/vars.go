@@ -36,7 +36,7 @@ import (
 
 var (
 	IpList     = "/Users/dpdu/GolandProjects/x-crack/iplist.txt"
-	ResultFile = "/Users/dpdu/GolandProjects/x-crack/x_crack.txt"
+	ResultFile = "/Users/dpdu/GolandProjects/x-crack/results.txt"
 
 	UserDict = "/Users/dpdu/GolandProjects/x-crack/user.dic"
 	PassDict = "/Users/dpdu/GolandProjects/x-crack/pass.dic"
@@ -44,8 +44,12 @@ var (
 	USER = "root"
 	PASS = "123456"
 
+	USERNAME = ""
+	PASSWORD = ""
+	IP       = "" // ssh://127.0.0.1
+
 	TimeOut = 3 * time.Second
-	ScanNum = 5000
+	ScanNum = 100
 
 	DebugMode bool
 
@@ -71,6 +75,9 @@ var (
 		6379:  "REDIS",
 		9200:  "ELASTICSEARCH",
 		27017: "MONGODB",
+		110:   "POP3",
+		143:   "IMAP",
+		389:   "LDAP",
 	}
 
 	UdpProtocols = map[string]bool{

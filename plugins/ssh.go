@@ -51,8 +51,7 @@ func ScanSsh(s models.Service) (err error, result models.ScanResult) {
 	if err == nil {
 		defer client.Close()
 		session, err := client.NewSession()
-		errRet := session.Run("echo xsec")
-		if err == nil && errRet == nil {
+		if err == nil {
 			defer session.Close()
 			result.Result = true
 		}
