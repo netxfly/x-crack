@@ -16,7 +16,7 @@
 * ssh
 * pop3
 * imap
-* 
+
 
 ## Roadmap
 1. 扩充支持的协议，计划增加： 
@@ -55,11 +55,11 @@ $env:CGO_ENABLED="0"
 $env:GOOS="linux"
 $env:GOARCH="amd64"
 
-go build -ldflags "-w -s" -o xcrack_linux_amd64/xcrack
+go build -ldflags "-w -s" -o build/xcrack_linux_amd64
 
 # windows
 $env:CGO_ENABLED="0"
 $env:GOOS="windows"
 $env:GOARCH="amd64"
-go build -ldflags "-w -s" -o xcrack_windows_amd64.exe
+go build -ldflags "-w -s" -o build/xcrack_windows_amd64.exe
 ```

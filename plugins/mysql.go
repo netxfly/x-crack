@@ -26,8 +26,6 @@ package plugins
 
 import (
 	_ "github.com/go-sql-driver/mysql"
-	"time"
-
 	"x-crack/models"
 
 	"database/sql"
@@ -42,10 +40,12 @@ func ScanMysql(service models.Service) (err error, result models.ScanResult) {
 	db, err := sql.Open("mysql", dataSourceName)
 
 	if err == nil {
-		db.SetConnMaxLifetime(time.Second * 5)
-		db.SetMaxIdleConns(100)
-		db.SetMaxOpenConns(151)
-		defer db.Close()
+		defer func(db *sql.DB) {
+			err := db.Close()
+			if err != nil {
+
+			}
+		}(db)
 		err = db.Ping()
 		if err == nil {
 			result.Result = true
