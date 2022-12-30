@@ -26,21 +26,22 @@ package util_test
 
 import (
 	"x-crack/util"
+	"x-crack/vars"
 
 	"testing"
 )
 
 func TestReadIpList(t *testing.T) {
-	ipList := "/tmp/iplist.txt"
+	ipList := vars.IpList
 	t.Log(util.ReadIpList(ipList))
 }
 
 func TestReadUserDict(t *testing.T) {
-	userDict := "/tmp/user.dic"
+	userDict := vars.UserDictFile
 	t.Log(util.ReadUserDict(userDict))
 }
 
 func TestReadPasswordDict(t *testing.T) {
-	passDict := "/tmp/pass.dic"
+	passDict := vars.PassDictFile
 	t.Log(util.ReadPasswordDict(passDict))
 }

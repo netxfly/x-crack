@@ -26,11 +26,12 @@ package util_test
 
 import (
 	"x-crack/util"
+	"x-crack/vars"
 
 	"testing"
 )
 
 func TestDivideAsset(t *testing.T) {
-	ipList := "/tmp/iplist.txt"
+	ipList := vars.IpList
 	t.Log(util.DivideAsset(util.ReadIpList(ipList)))
 }

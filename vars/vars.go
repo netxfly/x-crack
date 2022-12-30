@@ -35,11 +35,11 @@ import (
 )
 
 var (
-	IpList     = "/Users/dpdu/GolandProjects/x-crack/iplist.txt"
-	ResultFile = "/Users/dpdu/GolandProjects/x-crack/results.txt"
+	IpList     = "../iplist.txt"
+	ResultFile = "../results.txt"
 
-	UserDict = "/Users/dpdu/GolandProjects/x-crack/user.dic"
-	PassDict = "/Users/dpdu/GolandProjects/x-crack/pass.dic"
+	UserDictFile = "../user.dic"
+	PassDictFile = "../pass.dic"
 
 	USER = "root"
 	PASS = "123456"
