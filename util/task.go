@@ -164,10 +164,13 @@ func crackPassword(taskChan chan models.Service, wg *sync.WaitGroup) {
 			wg.Done()
 			continue
 		}
-
-		fn := plugins.ScanFuncMap[protocol]
-		models.SaveResult(fn(task))
-		wg.Done()
+		fn, ok := plugins.ScanFuncMap[protocol]
+		if ok {
+			models.SaveResult(fn(task))
+			wg.Done()
+		} else {
+			panic(fmt.Sprintf("protocol %v not supported", protocol))
+		}
 	}
 }
 
