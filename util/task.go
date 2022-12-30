@@ -62,7 +62,8 @@ func DistributionTask(tasks []models.Service) {
 	scanBatch := totalTask / vars.ScanNum
 	logger.Log.Infoln("Start to scan")
 	vars.ProgressBar = pb.StartNew(totalTask)
-	vars.ProgressBar.SetTemplate(`{{ rndcolor "Scanning progress: " }} {{  percent . "[%.02f%%]" "[?]"| rndcolor}} {{ counters . "[%s/%s]" "[%s/?]" | rndcolor}} {{ bar . "「" "-" (rnd "ᗧ" "◔" "◕" "◷" ) "•" "」" | rndcolor }} {{rtime . | rndcolor}} `)
+	vars.ProgressBar.SetTemplate(`{{ rndcolor "Scanning progress: " }} {{  percent . "[%.02f%%]" "[?]"| rndcolor}} {{ counters . "[%s/%s]" "[%s/?]" | rndcolor}} {{ bar . "「" "-" (rnd "ᗧ" "◔" "◕" "◷" ) "•" "」" | rndcolor }} {{rtime . | rndcolor}} 
+`)
 
 	for i := 0; i < scanBatch; i++ {
 		curTasks := tasks[vars.ScanNum*i : vars.ScanNum*(i+1)]
@@ -192,11 +193,11 @@ func Scan(ctx *cli.Context) (err error) {
 	}
 
 	if ctx.IsSet("user_dict") {
-		vars.UserDict = ctx.String("user_dict")
+		vars.UserDictFile = ctx.String("user_dict")
 	}
 
 	if ctx.IsSet("pass_dict") {
-		vars.PassDict = ctx.String("pass_dict")
+		vars.PassDictFile = ctx.String("pass_dict")
 	}
 
 	if ctx.IsSet("outfile") {
@@ -214,22 +215,34 @@ func Scan(ctx *cli.Context) (err error) {
 	if ctx.IsSet("password") {
 		vars.PASSWORD = ctx.String("password")
 	}
+	// Read dict
 	vars.StartTime = time.Now()
-	userDict, uErr := ReadUserDict(vars.UserDict)
-	if vars.USERNAME != "" {
+	var userDict []string
+	var passDict []string
+	var uErr error
+	var pErr error
+	//处理-u / -U
+	if ctx.IsSet("username") {
 		userDict = []string{vars.USERNAME}
+	} else {
+		userDict, uErr = ReadUserDict(vars.UserDictFile)
 	}
-	passDict, pErr := ReadPasswordDict(vars.PassDict)
-	if vars.PASSWORD != "" {
+	//处理-p / -P
+	if ctx.IsSet("password") {
 		passDict = []string{vars.PASSWORD}
+	} else {
+		passDict, pErr = ReadPasswordDict(vars.PassDictFile)
 	}
-	ipList := ReadIpList(vars.IpList)
+
+	//处理-i / -I
 	var aliveIpList []models.IpAddr
-	if vars.IP != "" {
+	if ctx.IsSet("ip") {
 		aliveIpList = CheckAliveIpAddr(vars.IP)
 	} else {
+		ipList := ReadIpList(vars.IpList)
 		aliveIpList = CheckAlive(ipList)
 	}
+
 	if uErr == nil && pErr == nil {
 		logger.Log.Printf("Got %v services to brute force", len(aliveIpList))
 		logger.Log.Printf("Loaded %v usernames, %v passwords", len(userDict), len(passDict))
