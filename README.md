@@ -17,6 +17,8 @@
 * pop3
 * imap
 
+考虑到跨平台的兼容性，linux需要开启cgo，暂不支持
+* rdp
 
 ## Roadmap
 1. 扩充支持的协议，计划增加： 
@@ -48,6 +50,10 @@
 
 
 ## BUILD
+```
+# static options
+--extldflags -static
+```
 
 ```
 # linux
@@ -55,11 +61,11 @@ $env:CGO_ENABLED="0"
 $env:GOOS="linux"
 $env:GOARCH="amd64"
 
-go build -ldflags "-w -s" -o build/xcrack_linux_amd64
+go build -ldflags "-w -s " -o build/xcrack_linux_amd64
 
 # windows
 $env:CGO_ENABLED="0"
 $env:GOOS="windows"
 $env:GOARCH="amd64"
-go build -ldflags "-w -s" -o build/xcrack_windows_amd64.exe
+go build -ldflags "-w -s --extldflags  -static" -o build/xcrack_windows_amd64.exe
 ```

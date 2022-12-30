@@ -1,7 +1,6 @@
 module x-crack
 
 require (
-	cloud.google.com/go v0.36.0 // indirect
 	github.com/denisenkom/go-mssqldb v0.0.0-20190204142019-df6d76eb9289
 	github.com/fortytw2/leaktest v1.3.0 // indirect
 	github.com/go-redis/redis v6.15.1+incompatible
@@ -12,7 +11,7 @@ require (
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.24.1 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible
-	github.com/sirupsen/logrus v1.3.0
+	github.com/sirupsen/logrus v1.8.1
 	github.com/stacktitan/smb v0.0.0-20170721050911-ba124664fd6b
 	github.com/urfave/cli v1.20.0
 	github.com/x-cray/logrus-prefixed-formatter v0.5.2
@@ -23,15 +22,14 @@ require (
 )
 
 require (
+	cloud.google.com/go v0.81.0 // indirect
 	github.com/emersion/go-imap v1.2.1
 	github.com/go-ldap/ldap/v3 v3.4.4
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/gosnmp/gosnmp v1.35.0
-	github.com/hi-unc1e/grdp v1.0.4
 	github.com/knadh/go-pop3 v0.3.0
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/VividCortex/ewma.v1 v1.1.1 // indirect
-	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gopkg.in/fatih/color.v1 v1.7.0 // indirect
 	gopkg.in/mattn/go-colorable.v0 v0.1.0 // indirect
 	gopkg.in/mattn/go-isatty.v0 v0.0.4 // indirect
