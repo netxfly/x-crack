@@ -8,7 +8,7 @@
 
 ## Supported Protocol 
 * ftp
-* mysql, (TODO)mysql db_name -> mysql
+* mysql
 * postgres
 * redis
 * smb
@@ -23,14 +23,14 @@
 ## Roadmap
 1. 扩充支持的协议，计划增加： 
 - rdp（需要依赖，暂时没找到好的替代办法）
-- x ldap（暂不开发）
+- ldap（暂不开发）
 - memcache（暂不开发）
 
 
 2. 修改cli传参可直接输入用户名和密码，为类似hydra的形式
 
 ```
-./x-crack scan -i ssh://127.0.0.1:22 -u root -p 123456
+./x-crack scan -i ssh://127.0.0.1:22 -u root -P ./pass.dic
 ```
 
 
