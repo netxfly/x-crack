@@ -10,13 +10,12 @@ build:
 	$env:CGO_ENABLED="0"
 	$env:GOOS="linux"
 	$env:GOARCH="amd64"
-	go build -o $env:LINUX $env:OPTS
-
+	go build $env:OPTS -o $env:LINUX
 	# windows
 	$env:CGO_ENABLED="0"
 	$env:GOOS="windows"
 	$env:GOARCH="amd64"
-	go build -o $env:WINDOWS $env:OPTS
+	go build $env:OPTS  -o $env:WINDOWS
 
 	# mac
 	$env:CGO_ENABLED="0"
